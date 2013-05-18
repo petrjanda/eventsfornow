@@ -1,7 +1,7 @@
 module.exports = Em.View.extend({
   templateName: 'map',
 
-  _eventMarkers: [],
+  _eventMarkers: {},
 
   _update: function() {
     if(!this._map) return;
@@ -12,7 +12,8 @@ module.exports = Em.View.extend({
   _updatePosition: function() {
     if(!this._map) return;
 
-    
+    var event = this.get('controller.currentEvent');
+    _panMapTo(event);
   }.observes('controller.currentEvent'),
 
   didInsertElement: function() {
@@ -39,16 +40,16 @@ module.exports = Em.View.extend({
 
 		marker.addTo(_self._map)
 
-		_self._eventMarkers.push(marker);
+		_self._eventMarkers[event.id] = marker;
     })
   },
 
   _cleanup: function() {
     var self = this;
 
-    this._eventMarkers.forEach(function(marker) {
-      self._map.removeLayer(marker);
-    })
+   	$.each(this._eventMarkers, function(eventId, eventMarker) {
+   		self._map.removeLayer(eventMarker);
+   	})
   },
 
   _toMarker: function(event) {
@@ -57,5 +58,11 @@ module.exports = Em.View.extend({
     marker.bindPopup(text).openPopup();
 
     return marker;
+  },
+
+  _panMapTo: function(event) {
+    var marker = this._eventMarkers[event.id];
+
+    this.map.panTo(marker.getLatLong());
   }
 })
