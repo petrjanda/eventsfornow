@@ -2,16 +2,26 @@ App = require('app')
 
 module.exports = Em.Route.extend({
   setupController: function(controller) {
-    var content = [
-      {location: {lat: 51.505, long: -0.09}},
-      {location: {lat: 51.505, long: -0.08}},
-      {location: {lat: 51.510, long: -0.08}},
-      {location: {lat: 51.500, long: -0.08}},
-      {location: {lat: 51.505, long: -0.07}},
-    ];
+    $.getJSON('http://juan-air.local:9292/events?search=london', function(data) {
+      var data = JSON.parse({
+        "events": [
+          {
+            "id": 1,
+            "title": "Hacking with Ember!",
+            "address": "3 Plough Yard, Shoreditch, EC2A 3LP, London",
+            "latitude": 51.5227122,
+            "longitude": -0.0790287,
+            "start_time": null,
+            "end_time": null
+          }
+        ]
+      });
 
+      console.log(data)
 
-    controller.set('content', content);
+    })
+
+    controller.set('content', []);
 
   }
 })
