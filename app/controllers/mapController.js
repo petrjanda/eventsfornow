@@ -1,2 +1,1 @@
-module.exports = Em.ArrayController.create({
-})
+module.exports = Ember.ArrayController.extend({})

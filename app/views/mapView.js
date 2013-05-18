@@ -1,3 +1,7 @@
 module.exports = Em.View.extend({
-  templateName: 'map'
+  templateName: 'map',
+
+  didInsertElement: function() {
+    console.log(this.get('controller'))
+  }
 })

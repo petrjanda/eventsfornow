@@ -1,7 +1,10 @@
 App = require('app')
 
 module.exports = Em.Route.extend({
-  enter: function() {
-    console.log('map');
+  setupController: function(controller) {
+    var content = ['hello'];
+
+    controller.set('content', content);
+
   }
 })
