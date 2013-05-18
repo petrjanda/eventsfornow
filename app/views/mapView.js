@@ -4,12 +4,16 @@ module.exports = Em.View.extend({
   _eventMarkers: [],
 
   _update: function() {
-    console.log('changed')
-
     if(!this._map) return;
 
     this._rerenderEvents();
   }.observes('controller.content'),
+
+  _updatePosition: function() {
+    if(!this._map) return;
+
+    
+  }.observes('controller.currentEvent'),
 
   didInsertElement: function() {
   	this._map = L.map('map').setView([51.505, -0.09], 13);

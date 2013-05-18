@@ -1,1 +1,60 @@
-<div id="map" style="height: 500px;"></div>
+<style type="text/css">
+body {
+  font-family:'Proxima Nova', 'Helvetica Neue';
+}
+
+#map {
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  right:300px;
+}
+
+#list {
+  position:absolute;
+  width:300px;
+  overflow:scroll;
+  top:0;
+  bottom:0;
+  right:0;
+}
+
+.event {
+  background:#eee;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #fff;
+  padding:20px;
+}
+
+.event .btn {
+  background:#019875;
+  color:#fff;
+  font-size:12px;
+  text-decoration:none;
+  padding:4px 8px;
+}
+
+.event h2 {
+  font-size:16px;
+}
+
+.event p {
+  font-size:12px;
+}
+</style>
+
+<div id="map"></div>
+
+<div id='list'>
+  {{#each controller.content}}
+    <div class='event'>
+      <h2>{{this.title}}</h2>
+      <p>
+        {{this.address}}
+      </p>
+
+      <a class='btn' href='#'>See on map</a>
+    </div> 
+  {{/each}}
+</div>
