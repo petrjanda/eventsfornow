@@ -12,12 +12,12 @@ module.exports = Em.View.extend({
   _updatePosition: function() {
     if(!this._map) return;
 
-    var event = this.get('controller.currentEvent');
-    _panMapTo(event);
+    var eventId = this.get('controller.currentEvent');
+    this._panMapTo(eventId);
   }.observes('controller.currentEvent'),
 
   didInsertElement: function() {
-  	this._map = L.map('map').setView([51.525, -0.09], 13);
+  	this._map = L.map('map').setView([51.525, -0.09], 12);
 
     this._rerenderEvents();
 
@@ -60,9 +60,11 @@ module.exports = Em.View.extend({
     return marker;
   },
 
-  _panMapTo: function(event) {
-    var marker = this._eventMarkers[event.id];
+  _panMapTo: function(eventId) {
+    var marker = this._eventMarkers[eventId];
+    console.log(marker);
 
-    this.map.panTo(marker.getLatLong());
+    this._map.panTo(marker.getLatLng());
+    this._map.setZoom(14);
   }
 })
