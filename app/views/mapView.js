@@ -7,7 +7,7 @@ module.exports = Em.View.extend({
     if(!this._map) return;
 
     this._rerenderEvents();
-  }.observes('controller.content'),
+  }.observes('controller.filteredContent'),
 
   _updatePosition: function() {
     if(!this._map) return;
@@ -33,7 +33,7 @@ module.exports = Em.View.extend({
   	var _self = this;
     _self._cleanup();
 
-    var events = this.get('controller.content');
+    var events = this.get('controller.filteredContent');
     
     events.forEach(function(event) {
     	var marker = _self._toMarker(event);

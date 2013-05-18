@@ -37,25 +37,41 @@ body {
 }
 
 .event h2 {
-  font-size:20px;
+  font-size:18px;
   margin:0;
   padding-bottom:10px;
   border-bottom:1px solid #ddd;
+  text-transform:uppercase;
 }
 
 .event p {
   font-size:14px;
+}
+
+#search {
+  width:100%;
+  border:0;
+  padding:6px;
+  font-size:16px;
+  border-bottom:1px solid #ddd;
+}
+
+a {
+  text-decoration:none;
+  color:#444;
 }
 </style>
 
 <div id="map"></div>
 
 <div id='list'>
-  {{#each controller.content}}
+
+  {{view Ember.TextField elementId='search' valueBinding="searchedToken"}}
+  {{#each controller.filteredContent}}
     <div class='event'>
-      <h2>{{this.title}}</h2>
+      <h2><a target="_blank" {{bindAttr href="this.url"}}>{{this.title}}</a></h2>
       <p>
-        {{this.address}}
+        {{this.address}}<br/><br/>
       </p>
 
       <button class='btn' {{action "showEvent" this.id on="click"}}>See on map</a>
