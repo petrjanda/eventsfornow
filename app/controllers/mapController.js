@@ -1,1 +1,2 @@
-module.exports = Ember.ArrayController.extend({})
+module.exports = Ember.ArrayController.extend({
+})

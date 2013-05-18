@@ -33,6 +33,7 @@ body {
   font-size:12px;
   text-decoration:none;
   padding:4px 8px;
+  border:0;
 }
 
 .event h2 {
@@ -54,7 +55,7 @@ body {
         {{this.address}}
       </p>
 
-      <a class='btn' href='#'>See on map</a>
+      <button class='btn' {{action "showEvent" this.id on="click"}}>See on map</a>
     </div> 
   {{/each}}
 </div>

@@ -7,5 +7,11 @@ module.exports = Em.Route.extend({
     })
 
     controller.set('content', []);
+  },
+
+  events: {
+    showEvent: function(eventId) {
+      this.get('controller').set('currentEvent', eventId);
+    }
   }
 })
