@@ -4,11 +4,13 @@ App = require 'app'
 
 # ===== Router =====
 App.Router.map ->
+  @route('map')
     # put your routes here
 
 
 # ===== Routes =====
-require 'routes/IndexRoute'
+App.IndexRoute = require 'routes/IndexRoute'
+App.MapRoute = require 'routes/mapRoute'
 
 
 # ===== Store =====
@@ -21,7 +23,7 @@ require 'routes/IndexRoute'
 App.MapView = require 'views/mapView'
 
 # ===== Controllers =====
-
+App.MapController = require 'controllers/mapController'
 
 # ===== Template Helpers =====
 

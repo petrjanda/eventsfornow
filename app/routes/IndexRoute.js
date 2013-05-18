@@ -1,6 +1,10 @@
 App = require('app')
 
-module.exports = App.IndexRoute = Em.Route.extend({
+module.exports = Em.Route.extend({
+  enter: function() {
+    console.log('index');
+  },
+
   model: function() {
     return ['red', 'yellow', 'blue'];
   }
