@@ -12,7 +12,7 @@ module.exports = Em.View.extend({
   }.observes('controller.content'),
 
   didInsertElement: function() {
-  	this._map = L.map('map').setView([51.505, -0.09], 13);
+  	this._map = L.map('map').setView([51.525, -0.09], 13);
 
     this._rerenderEvents();
 
@@ -25,17 +25,18 @@ module.exports = Em.View.extend({
   },
 
   _rerenderEvents: function() {
-    this._cleanup();
+  	var _self = this;
+    _self._cleanup();
 
     var events = this.get('controller.content');
-    for(var i = 0; i < events.length; i++) {
-      var event = events[i];
-      var marker = L.marker([event.latitude, event.longitude])
+    
+    events.forEach(function(event) {
+    	var marker = _self._toMarker(event);
 
-      marker.addTo(this._map)
+		marker.addTo(_self._map)
 
-      this._eventMarkers.push(marker);
-    }
+		_self._eventMarkers.push(marker);
+    })
   },
 
   _cleanup: function() {
@@ -44,5 +45,13 @@ module.exports = Em.View.extend({
     this._eventMarkers.forEach(function(marker) {
       self._map.removeLayer(marker);
     })
+  },
+
+  _toMarker: function(event) {
+  	var marker = L.marker([event.latitude, event.longitude]);
+    var text = "<strong>" + event.title + "</strong><br/>" + event.address;
+    marker.bindPopup(text).openPopup();
+
+    return marker;
   }
 })
