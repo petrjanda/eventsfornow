@@ -1,7 +1,7 @@
 module.exports = Em.View.extend({
   templateName: 'map',
 
-  _eventMarkers: [],
+  _eventMarkers: {},
 
   _update: function() {
     if(!this._map) return;
@@ -12,11 +12,12 @@ module.exports = Em.View.extend({
   _updatePosition: function() {
     if(!this._map) return;
 
-    
+    var eventId = this.get('controller.currentEvent');
+    this._panMapTo(eventId);
   }.observes('controller.currentEvent'),
 
   didInsertElement: function() {
-  	this._map = L.map('map').setView([51.525, -0.09], 13);
+  	this._map = L.map('map').setView([51.525, -0.09], 12);
 
     this._rerenderEvents();
 
@@ -39,16 +40,16 @@ module.exports = Em.View.extend({
 
 		marker.addTo(_self._map)
 
-		_self._eventMarkers.push(marker);
+		_self._eventMarkers[event.id] = marker;
     })
   },
 
   _cleanup: function() {
     var self = this;
 
-    this._eventMarkers.forEach(function(marker) {
-      self._map.removeLayer(marker);
-    })
+   	$.each(this._eventMarkers, function(eventId, eventMarker) {
+   		self._map.removeLayer(eventMarker);
+   	})
   },
 
   _toMarker: function(event) {
@@ -57,5 +58,13 @@ module.exports = Em.View.extend({
     marker.bindPopup(text).openPopup();
 
     return marker;
+  },
+
+  _panMapTo: function(eventId) {
+    var marker = this._eventMarkers[eventId];
+    console.log(marker);
+
+    this._map.panTo(marker.getLatLng());
+    this._map.setZoom(14);
   }
 })
