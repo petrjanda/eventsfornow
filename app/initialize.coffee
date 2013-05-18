@@ -18,7 +18,7 @@ require 'routes/IndexRoute'
 
 
 # ===== Views =====
-
+App.MapView = require 'views/mapView'
 
 # ===== Controllers =====
 
@@ -29,3 +29,5 @@ require 'routes/IndexRoute'
 # ===== Templates =====
 require 'templates/application'
 require 'templates/index'
+require 'templates/map'
+
